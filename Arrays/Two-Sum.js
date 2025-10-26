@@ -7,16 +7,29 @@ function twoSumBruteForce(nums, target) {
   let fNumber = 0;
   let sNumber = 0;
   for (let i = 0; i < nums.length; i++) {
-    for (let j = i+1 ; j < nums.length-1; j++) {
-
-      if ((nums[i] + nums[j]) === target) {
-       
-        return [i,j];
+    for (let j = i + 1; j < nums.length - 1; j++) {
+      if (nums[i] + nums[j] === target) {
+        return [i, j];
       }
     }
   }
   return [];
 }
 
+function twoSumHashMap(nums, target) {
+  const seen = {}; // store number -> index
+
+  for (let i = 0; i < nums.length; i++) {
+    const complement = target - nums[i];
+    if (seen[complement] !== undefined) {
+      return [seen[complement], i];
+    }
+    seen[nums[i]] = i;
+  }
+
+  return [];
+}
+
 const nums = [2, 77, 3, 6, 4, 7, 8];
-console.log(twoSumBruteForce(nums, 9));
+console.log(twoSumBruteForce(nums, 9)); // time complexity o(n2)
+console.log(twoSumHashMap(nums, 9)); // time complexity o(n)
