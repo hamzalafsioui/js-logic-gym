@@ -6,17 +6,39 @@
 
 function buySellStock(prices) {
   let maxProfit = 0;
+
   let minPrice = Infinity;
+  let minIndex = -1;
+
+  let buyIndex = -1;
+  let sellIndex = -1;
+
   for (let i = 0; i < prices.length; i++) {
     const currentPrice = prices[i];
+
+    // update minimum price and its index
     if (currentPrice < minPrice) {
       minPrice = currentPrice;
+      minIndex = i;
     }
+
     const profit = currentPrice - minPrice;
-    maxProfit = Math.max(maxProfit, profit);
+
+    // update max profit + indices
+    if (profit > maxProfit) {
+      maxProfit = profit;
+      buyIndex = minIndex;
+      sellIndex = i;
+    }
   }
-  console.log(maxProfit);
+
+  return {
+    maxProfit,
+    buyIndex,
+    sellIndex,
+  };
 }
 
 const prices = [7, 1, 5, 3, 6, 4];
-buySellStock(prices);
+
+console.log(buySellStock(prices));
